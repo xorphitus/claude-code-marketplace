@@ -1,0 +1,5 @@
+{
+  "name": "jj-plugin",
+  "description": "Jujutsu (jj) version control plugin providing a specialist agent and skills for commits, diffs, rebasing, bookmarks, workspace management, and more.",
+  "version": "1.0.0"
+}

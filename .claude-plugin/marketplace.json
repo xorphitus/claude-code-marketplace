@@ -1,0 +1,13 @@
+{
+  "name": "xorphitus-plugins",
+  "owner": {
+    "name": "Xorphitus"
+  },
+  "plugins": [
+    {
+      "name": "jj-plugin",
+      "source": "./plugins/jj",
+      "description": "Jujutsu (jj) version control plugin providing a specialist agent and skills for commits, diffs, rebasing, bookmarks, workspace management, and more."
+    }
+  ]
+}
