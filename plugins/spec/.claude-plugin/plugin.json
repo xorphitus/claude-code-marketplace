@@ -1,0 +1,5 @@
+{
+  "name": "spec-plugin",
+  "description": "Pre-implementation specification agent that investigates codebases, asks clarifying questions, and produces clear requirement specs.",
+  "version": "1.0.0"
+}

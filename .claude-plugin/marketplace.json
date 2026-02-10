@@ -8,6 +8,11 @@
       "name": "jj-plugin",
       "source": "./plugins/jj",
       "description": "Jujutsu (jj) version control plugin providing a specialist agent and skills for commits, diffs, rebasing, bookmarks, workspace management, and more."
+    },
+    {
+      "name": "spec-plugin",
+      "source": "./plugins/spec",
+      "description": "Pre-implementation specification agent that investigates codebases, asks clarifying questions, and produces clear requirement specs."
     }
   ]
 }
