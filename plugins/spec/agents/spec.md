@@ -2,7 +2,7 @@
 name: spec
 description: Specification specialist. Use proactively before starting any non-trivial implementation to analyze requirements, ask clarifying questions, and produce a clear requirements spec that implementation agents can execute from.
 tools: AskUserQuestion, Read, Glob, Grep, WebFetch, WebSearch
-model: sonnet
+model: inherit
 skills:
   - spec
 ---
