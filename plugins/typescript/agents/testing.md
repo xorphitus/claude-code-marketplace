@@ -1,5 +1,5 @@
 ---
-name: typescript-testing
+name: testing
 description: TypeScript testing specialist. Use proactively after implementing TypeScript code to run tests, analyze coverage, review test quality, and identify gaps. Read-only — does not modify code.
 tools: Read, Bash, Glob, Grep
 model: sonnet

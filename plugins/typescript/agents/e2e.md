@@ -1,5 +1,5 @@
 ---
-name: typescript-e2e
+name: e2e
 description: TypeScript E2E testing specialist. Use proactively after implementing TypeScript code when an E2E framework is available. Implements and runs E2E tests.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: sonnet

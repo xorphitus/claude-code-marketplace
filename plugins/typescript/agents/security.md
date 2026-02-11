@@ -1,5 +1,5 @@
 ---
-name: typescript-security
+name: security
 description: TypeScript security auditing specialist. Use proactively after implementing TypeScript code to audit for vulnerabilities, insecure patterns, and dependency risks. Read-only — does not modify code.
 tools: Read, Bash, Glob, Grep
 model: sonnet

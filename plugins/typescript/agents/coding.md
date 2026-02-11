@@ -1,5 +1,5 @@
 ---
-name: typescript-coding
+name: coding
 description: TypeScript coding specialist. Use proactively when writing or modifying TypeScript code to follow TDD Red-Green-Refactor cycle with strict type safety.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: opus
