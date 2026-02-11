@@ -1,23 +1,19 @@
 # claude-code-marketplace
-Local installation example:
+
+Basic plugins local installation:
 
 ```bash
 claude plugin marketplace add /path/to/claude-code-marketplace
 claude plugin install --scope local jj-plugin
+claude plugin install --scope local spec-plugin
+claude plugin install --scope local tdd-plugin
 ```
 
-## Appendix
-### Frontend Project Setup Example
+## Recommended External Tools
+
 Official plugins:
 
 ```bash
-claude plugin install --scope project typescript-lsp
-claude plugin install --scope project frontend-design
 claude plugin install --scope project claude-md-management
 claude plugin install --scope project claude-code-setup
-```
-
-MCP:
-```bash
-claude mcp add --scope project playwright npx @playwright/mcp@latest
 ```

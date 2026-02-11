@@ -1,0 +1,5 @@
+{
+  "name": "typescript-plugin",
+  "description": "TypeScript development plugin providing specialist agents for coding, test analysis, and security auditing.",
+  "version": "1.0.0"
+}
