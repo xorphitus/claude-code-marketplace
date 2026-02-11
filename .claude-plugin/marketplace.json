@@ -13,6 +13,11 @@
       "name": "spec-plugin",
       "source": "./plugins/spec",
       "description": "Pre-implementation specification agent that investigates codebases, asks clarifying questions, and produces clear requirement specs."
+    },
+    {
+      "name": "tdd-plugin",
+      "source": "./plugins/tdd",
+      "description": "TDD (Test-Driven Development) skill plugin providing t-wada style Red-Green-Refactor cycle guidance, triangulation, baby steps, and best practices."
     }
   ]
 }

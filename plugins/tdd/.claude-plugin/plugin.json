@@ -1,0 +1,5 @@
+{
+  "name": "tdd-plugin",
+  "description": "TDD (Test-Driven Development) skill plugin providing t-wada style Red-Green-Refactor cycle guidance, triangulation, baby steps, and best practices.",
+  "version": "1.0.0"
+}
