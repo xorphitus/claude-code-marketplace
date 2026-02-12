@@ -10,6 +10,11 @@
       "description": "Jujutsu (jj) version control plugin providing a specialist agent and skills for commits, diffs, rebasing, bookmarks, workspace management, and more."
     },
     {
+      "name": "go-plugin",
+      "source": "./plugins/go",
+      "description": "Go development plugin providing specialist agents for TDD-driven coding, code review, test analysis, security auditing, and E2E testing."
+    },
+    {
       "name": "spec-plugin",
       "source": "./plugins/spec",
       "description": "Pre-implementation specification agent that investigates codebases, asks clarifying questions, and produces clear requirement specs."
