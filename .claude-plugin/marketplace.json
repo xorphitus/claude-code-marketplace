@@ -15,6 +15,11 @@
       "description": "Go development plugin providing specialist agents for TDD-driven coding, code review, test analysis, security auditing, and E2E testing."
     },
     {
+      "name": "kotlin-plugin",
+      "source": "./plugins/kotlin",
+      "description": "Kotlin development plugin providing specialist agents for TDD-driven coding, code review, test analysis, security auditing, and E2E testing."
+    },
+    {
       "name": "spec-plugin",
       "source": "./plugins/spec",
       "description": "Pre-implementation specification agent that investigates codebases, asks clarifying questions, and produces clear requirement specs."

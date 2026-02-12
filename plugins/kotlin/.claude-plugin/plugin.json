@@ -1,0 +1,5 @@
+{
+  "name": "kotlin-plugin",
+  "description": "Kotlin development plugin providing specialist agents for TDD-driven coding, code review, test analysis, security auditing, and E2E testing.",
+  "version": "1.0.0"
+}
