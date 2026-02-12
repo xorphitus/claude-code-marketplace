@@ -30,6 +30,11 @@
       "description": "TDD (Test-Driven Development) skill plugin providing t-wada style Red-Green-Refactor cycle guidance, triangulation, baby steps, and best practices."
     },
     {
+      "name": "rust-plugin",
+      "source": "./plugins/rust",
+      "description": "Rust development plugin providing specialist agents for TDD-driven coding, code review, test analysis, security auditing, and E2E testing."
+    },
+    {
       "name": "typescript-plugin",
       "source": "./plugins/typescript",
       "description": "TypeScript development plugin providing specialist agents for TDD-driven coding, test analysis, and security auditing."
