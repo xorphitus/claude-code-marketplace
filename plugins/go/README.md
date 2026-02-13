@@ -28,6 +28,10 @@ Example:
           {
             "type": "command",
             "command": "go vet ./... && staticcheck ./..."
+          },
+          {
+            "type": "command",
+            "command": "go mod tidy"
           }
         ]
       }
@@ -81,3 +85,7 @@ Use `go-plugin:e2e` subagent to verify end-to-end behavior. If E2E tests fail, l
 - [`govulncheck`](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck) — vulnerability scanner for Go dependencies
 - [`goimports`](https://pkg.go.dev/golang.org/x/tools/cmd/goimports) — automatic import formatting
 - [`staticcheck`](https://staticcheck.dev/) — advanced static analysis
+
+## Multi-Module Repos
+
+For repositories containing multiple Go modules, use [Go workspaces](https://go.dev/doc/tutorial/workspaces) (`go work init`, `go work use ./module-a ./module-b`) to manage local development across modules. This avoids `replace` directives in `go.mod` and keeps dependency resolution consistent.

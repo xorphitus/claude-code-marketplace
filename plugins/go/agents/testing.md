@@ -38,12 +38,14 @@ Use the detected libraries' conventions for all test analysis. If multiple asser
 
 Evaluate existing tests against these criteria:
 
-- **Table-driven tests** — are related test cases grouped into table-driven tests using `[]struct{ name string; ... }` with `t.Run()`? Flag repetitive test functions that could be consolidated.
-- **`t.Helper()`** — do test helper functions call `t.Helper()` so failure messages point to the caller, not the helper?
+- **Table-driven tests** — are related test cases grouped into table-driven tests using `[]struct{ name string; ... }` with `t.Run()`? Flag repetitive test functions that could be consolidated. Ensure table-driven tests cover error paths and boundary cases (nil inputs, empty slices, zero values), not just happy paths.
+- **`t.Helper()`** — do test helper functions call `t.Helper()` so failure messages point to the caller, not the helper? Flag helpers missing `t.Helper()`.
+- **`t.Setenv()`** — are environment-dependent tests using `t.Setenv()` instead of manual `os.Setenv`/`os.Unsetenv` pairs? `t.Setenv` automatically restores the original value when the test completes.
 - **Subtests** — are `t.Run()` subtests used to give each case a clear name and allow running individual cases with `-run`?
 - **`t.Parallel()`** — are independent tests marked with `t.Parallel()` to enable parallel execution? Flag tests that could safely run in parallel but don't.
 - **`t.Cleanup()`** — is `t.Cleanup()` used for teardown instead of manual cleanup at the end of tests? This ensures cleanup runs even if the test fails.
 - **Benchmarks** — for performance-sensitive code, are `func BenchmarkXxx(b *testing.B)` benchmarks present?
+- **Fuzz tests** — for functions that parse input, handle serialization, or process untrusted data, are `func FuzzXxx(f *testing.F)` fuzz tests present? Fuzz testing is most valuable for parsers, encoders/decoders, and validation functions. Flag parsing or deserialization code that lacks fuzz coverage.
 - **Independence** — does each test set up its own state? Are there package-level variables or `TestMain` setups that could cause ordering issues?
 - **Completeness** — are edge cases covered? Nil inputs, empty slices, boundary values, error paths?
 - **Determinism** — are there time-dependent, random, or network-dependent tests? Flag flaky test risks.

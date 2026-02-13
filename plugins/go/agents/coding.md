@@ -47,7 +47,7 @@ Follow the Red-Green-Refactor cycle from the `tdd` skill, applied to Go:
 2. Extract types, introduce interfaces, add unexported fields where appropriate.
 3. Run only the relevant test(s) to confirm they still pass after refactoring.
 
-**Important:** Only run the specific test(s) related to the code you are changing. Do not run the full test suite — delegate that to the `go-testing` agent to keep context usage minimal.
+**Important:** Only run the specific test(s) related to the code you are changing. Do not run the full test suite — delegate that to the `testing` agent to keep context usage minimal.
 
 ## Go Guidelines
 
@@ -57,9 +57,17 @@ Follow the Red-Green-Refactor cycle from the `tdd` skill, applied to Go:
 - **Naming** — use MixedCaps (not snake_case). Keep names short and descriptive. Acronyms should be all-caps (`HTTPClient`, `ID`, `URL`). Avoid stuttering (`http.HTTPClient` → `http.Client`).
 - **`defer`** — use `defer` for resource cleanup (closing files, unlocking mutexes, flushing buffers). Place `defer` immediately after acquiring the resource.
 - **Goroutine safety** — document whether types are safe for concurrent use. Use mutexes or channels to protect shared state. Never launch goroutines without a clear shutdown path.
-- **`context.Context`** — pass `context.Context` as the first parameter to functions that do I/O or may be cancelled. Never store contexts in structs.
+- **`errgroup.WithContext`** — use `golang.org/x/sync/errgroup` for goroutine fan-out with error propagation. `errgroup.WithContext` provides a derived context that cancels remaining goroutines when one fails.
+- **`context.Context`** — pass `context.Context` as the first parameter to functions that do I/O or may be cancelled. Never store contexts in structs. Propagate context cancellation and set explicit timeouts for goroutines that perform I/O.
+- **Timer hygiene** — avoid `time.After` in long-lived loops or `select` statements; it allocates a new timer each iteration that cannot be garbage collected until it fires. Use `time.NewTimer`/`time.NewTicker` with `defer t.Stop()` instead.
 - **Zero values** — design types so their zero value is useful. Avoid requiring constructor functions when a zero-value struct works correctly.
-- **`interface{}`/`any` avoidance** — prefer concrete types or narrow interfaces. Use `any` only at serialization boundaries and narrow with type switches or type assertions immediately.
+- **`interface{}`/`any` avoidance** — prefer concrete types or narrow interfaces. Use `any` only at serialization boundaries and narrow with type switches or type assertions immediately. Prefer generics (`[T any]`) over `interface{}` when writing reusable data structures or algorithms.
+
+## Observability
+
+- **Structured logging** — use `log/slog` for structured, leveled logging. Prefer `slog.Info`, `slog.Error`, etc. with key-value attributes over `log.Printf` or `fmt.Println`.
+- **Context-aware logging** — extract request-scoped fields (trace ID, request ID, user ID) from `context.Context` and include them in log entries. Use `slog.Handler` middleware or `slog.With()` to attach context fields consistently.
+- **Log levels** — use `Debug` for development diagnostics, `Info` for normal operations, `Warn` for recoverable issues, `Error` for failures requiring attention. Never log sensitive data (passwords, tokens, PII).
 
 ## Side-Effect Decoupling
 
@@ -84,5 +92,6 @@ When writing new code:
 - Handle errors explicitly — return `error` values, don't panic for expected error conditions. Reserve `panic` for truly unrecoverable programmer errors.
 - Use table-driven tests to cover multiple cases concisely.
 - Write code that reads top-down; minimize cognitive jumps.
-- Pre-allocate slices and maps when the size is known (`make([]T, 0, n)`).
+- Pre-allocate slices and maps when the size is known (`make([]T, 0, n)`, `make(map[K]V, n)`).
+- Minimize allocations in hot paths — reuse buffers with `sync.Pool` where profiling shows GC pressure, and prefer stack allocation over heap allocation for short-lived values.
 - Use `strings.Builder` for string concatenation in loops.
