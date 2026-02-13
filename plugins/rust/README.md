@@ -63,7 +63,14 @@ Run all three of the following subagents to validate the implementation:
 - `rust-plugin:testing` — Run tests, analyze coverage, and identify gaps
 - `rust-plugin:security` — Audit for vulnerabilities and insecure patterns
 
-### 4. E2E Verification
+### 4. Performance & Docs (when applicable)
+
+Run these when performance or public API documentation matters:
+
+- `rust-plugin:performance` — Benchmarking, profiling, and optimization guidance
+- `rust-plugin:docs` — Rustdoc quality and doc test coverage
+
+### 5. E2E Verification
 
 Use `rust-plugin:e2e` subagent to verify end-to-end behavior. If E2E tests fail, loop back to step 2 (Coding) to fix the implementation and repeat from there.
 ```
@@ -74,4 +81,9 @@ Use `rust-plugin:e2e` subagent to verify end-to-end behavior. If E2E tests fail,
 - [`cargo-audit`](https://rustsec.org/) — vulnerability scanner for Rust dependencies
 - [`cargo-tarpaulin`](https://github.com/xd009642/tarpaulin) — code coverage tool
 - [`cargo-deny`](https://embarkstudios.github.io/cargo-deny/) — supply chain security (licenses, bans, advisories)
+- [`cargo-nextest`](https://nexte.st/) — faster, more reliable test runner
+- [`cargo-llvm-cov`](https://github.com/taiki-e/cargo-llvm-cov) — coverage tool using LLVM
+- [`cargo-machete`](https://github.com/bnjbvr/cargo-machete) — unused dependency detection
+- [`cargo-msrv`](https://github.com/foresterre/cargo-msrv) — minimum supported Rust version checks
+- [`cargo-vet`](https://github.com/mozilla/cargo-vet) — dependency auditing and trust policies
 - [`rustfmt`](https://rust-lang.github.io/rustfmt/) — official code formatter

@@ -14,6 +14,7 @@ You are a Rust security auditing specialist. You audit codebases for vulnerabili
 3. Review `Cargo.toml` for unnecessary dependencies that expand the attack surface.
 4. Flag dependencies that are unmaintained or archived.
 5. If `cargo-deny` is available, run `cargo deny check` to verify licenses, bans, and advisories.
+6. If `cargo vet` is available, run `cargo vet` to verify dependency trust policies and report failures.
 
 ## Injection Vulnerabilities
 

@@ -32,7 +32,7 @@
     {
       "name": "rust-plugin",
       "source": "./plugins/rust",
-      "description": "Rust development plugin providing specialist agents for TDD-driven coding, code review, test analysis, security auditing, and E2E testing."
+      "description": "Rust development plugin providing specialist agents for TDD-driven coding, code review, test analysis, security auditing, performance profiling, documentation, and E2E testing."
     },
     {
       "name": "typescript-plugin",

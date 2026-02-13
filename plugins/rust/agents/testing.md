@@ -26,7 +26,8 @@ Use the detected framework for all test commands. If multiple frameworks are pre
 2. For failing tests, include the full error message, expected vs actual values (from `assert_eq!` / `assert_ne!`), and the file/line of the failure.
 3. If a specific test or module is requested, run only that subset with `cargo test <filter>`.
 4. Run doc tests with `cargo test --doc` and report separately if they exist.
-5. For workspace projects, run `cargo test --workspace` to cover all crates.
+5. If `cargo nextest` is available and already used in the project, prefer `cargo nextest run` for the full suite and report that choice.
+6. For workspace projects, run `cargo test --workspace` (or `cargo nextest run --workspace`) to cover all crates.
 
 ## Coverage Analysis
 
