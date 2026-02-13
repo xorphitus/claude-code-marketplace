@@ -22,6 +22,9 @@ Before writing code, verify the project has:
    - `io.mockk:mockk` — MockK (Kotlin-first mocking)
    - `org.mockito.kotlin:mockito-kotlin` — Mockito with Kotlin extensions
 4. **Linter config** — check for `.editorconfig` (ktlint), `detekt.yml` or `detekt-config.yml` (detekt). If present, respect their configuration.
+5. **Version catalog** — if `gradle/libs.versions.toml` exists, read Kotlin, coroutines, and serialization versions there instead of hard-coding.
+6. **Toolchain & compiler options** — check for `kotlin.jvmToolchain(...)` or `java { toolchain { ... } }`, and confirm `jvmTarget` is set via `compilerOptions` (preferred) or `kotlinOptions`. If the project is a library, note whether `explicitApi()` is enabled.
+7. **Java interop nullability** — check for `-Xjsr305=strict` in compiler args; if absent, recommend it for stricter nullability at Java boundaries.
 
 Adapt your workflow to the detected tooling. Do not install or change tooling without explicit instruction.
 
@@ -52,16 +55,19 @@ Follow the Red-Green-Refactor cycle from the `tdd` skill, applied to Kotlin:
 
 ## Kotlin Guidelines
 
-- **Null safety** — leverage Kotlin's type system. Never use `!!` (non-null assertion) — use `?.`, `?:`, `let`, `requireNotNull`, or redesign to eliminate nullability. Treat `!!` as a bug.
+- **Null safety** — leverage Kotlin's type system. Avoid `!!` (non-null assertion); prefer `?.`, `?:`, `let`, `requireNotNull`, or redesign to eliminate nullability. If you must use `!!`, justify it with a brief comment.
 - **`val` by default** — always use `val`. Use `var` only when mutation is truly necessary.
 - **Data classes** — use data classes for value types that carry data. They provide `equals`, `hashCode`, `copy`, and destructuring for free.
-- **Sealed classes/interfaces** — use sealed hierarchies for restricted type variants. Always use exhaustive `when` expressions (no `else` branch on sealed types — let the compiler catch missing cases).
+- **Sealed classes/interfaces** — use sealed hierarchies for restricted type variants. Prefer `sealed interface` for pure hierarchies, and use `data object` for singleton variants. Always use exhaustive `when` expressions (no `else` branch on sealed types — let the compiler catch missing cases).
+- **Value classes** — use `@JvmInline value class` for strongly-typed IDs, money, and units to avoid primitive obsession while keeping runtime overhead low.
 - **Extension functions** — use to add behavior to existing types without inheritance. Keep them discoverable — define them near the type they extend or in a clearly named file.
-- **Scope functions** — use `let`, `run`, `with`, `apply`, `also` appropriately. Never nest scope functions — it destroys readability.
+- **Scope functions** — use `let`, `run`, `with`, `apply`, `also` appropriately. Avoid deep or unclear nesting; a small amount is fine when it improves readability.
 - **Immutable collections** — prefer `List`, `Set`, `Map` (read-only) over `MutableList`, `MutableSet`, `MutableMap`. Use mutable variants only when building collections locally.
 - **Explicit return types** — always declare return types on public/exported functions.
 - **Expressions over statements** — prefer `when` expressions, `if` expressions, and single-expression functions where they improve clarity.
 - **Coroutines** — use structured concurrency. Never use `GlobalScope`. Launch coroutines within a `CoroutineScope` that has a clear lifecycle. Use `withContext` for dispatcher switching.
+- **Dispatcher injection** — pass `CoroutineDispatcher` or `CoroutineContext` into constructors for testability; default to `Dispatchers.Default`/`IO` at the outermost boundary.
+- **Interop boundaries** — convert Java types at the boundary (e.g., to Kotlin collections, `Result`, or nullable types) so the core stays idiomatic Kotlin.
 
 ## Side-Effect Decoupling
 

@@ -48,7 +48,7 @@ Scan for common injection patterns:
 - **`!!` (non-null assertion)** — flag all usage. Each `!!` is a potential `NullPointerException`. Require justification or refactoring to eliminate it.
 - **`lateinit` misuse** — flag `lateinit var` on types that could be nullable or initialized in the constructor. `lateinit` bypasses null safety and throws `UninitializedPropertyAccessException` if accessed before initialization. Check that `isInitialized` is used where access timing is uncertain.
 - **Coroutine cancellation and resource cleanup** — flag `suspend` functions that acquire resources (connections, files, locks) without using `try/finally` or `use` for cleanup. Coroutine cancellation throws `CancellationException`, which can skip cleanup if not handled.
-- **Serialization attacks** — flag `@Polymorphic` (kotlinx.serialization) or `@JsonTypeInfo` (Jackson) on types deserialized from untrusted input. Polymorphic deserialization can instantiate arbitrary classes leading to remote code execution. Check for allowlists on type discriminators.
+- **Serialization attacks** — flag `@Polymorphic` (kotlinx.serialization) or `@JsonTypeInfo` (Jackson) on types deserialized from untrusted input. Polymorphic deserialization can instantiate arbitrary classes leading to remote code execution. Check for allowlists on type discriminators and explicitly registered subclasses.
 - **Reflection on untrusted data** — flag `KClass.createInstance()`, `Class.forName()`, or `Class.newInstance()` with user-controlled class names. This can instantiate arbitrary classes.
 - **Companion object secrets** — flag secrets, API keys, or credentials stored in `companion object` blocks. Companion object properties are effectively static and easily discoverable via decompilation.
 
