@@ -9,10 +9,10 @@ A skill that defines t-wada style test-driven development practices.
 
 ## Core Principles
 
-- **Test First**: Always write tests before implementation
-- **Red-Green-Refactor**: Follow the cycle of Fail → Pass → Improve
-- **Baby Steps**: Progress in small increments
-- **Express Intent**: Clearly express code intent through tests
+- Test First: Always write tests before implementation
+- Red-Green-Refactor: Follow the cycle of Fail → Pass → Improve
+- Baby Steps: Progress in small increments
+- Express Intent: Clearly express code intent through tests
 
 ## TDD Cycle
 
@@ -89,15 +89,7 @@ test "throws an error when creating a user with an empty name"
 
 1. Create an empty function/class skeleton (required for compiled languages)
 2. Write a test
-3. Run **only** the relevant test(s) to confirm the test fails (Red)
+3. Run ONLY the relevant test(s) to confirm the test fails (Red)
 4. Implement the minimal code to make the test pass (Green)
-5. Run **only** the relevant test(s) to confirm the test passes
+5. Run ONLY the relevant test(s) to confirm the test passes
 6. Refactor as needed (Refactor)
-
-## Daily Checklist
-
-- [ ] Always start new features with a test
-- [ ] Confirm the test fails before implementing
-- [ ] Start with a fake implementation and generalize incrementally
-- [ ] Consider refactoring once green
-- [ ] Verify that tests serve as documentation
