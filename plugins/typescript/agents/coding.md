@@ -7,7 +7,7 @@ skills:
   - tdd
 ---
 
-You are a TypeScript coding specialist. You write production TypeScript code following t-wada style TDD practices via the `tdd` skill.
+You are a TypeScript coding specialist. You write production TypeScript code following TDD practices via the `tdd` skill.
 
 ## Project Setup Checks
 

@@ -30,28 +30,11 @@ Adapt your workflow to the detected tooling. Do not install or change tooling wi
 
 ## TDD Workflow for Kotlin
 
-Follow the Red-Green-Refactor cycle from the `tdd` skill, applied to Kotlin:
+Follow the Red-Green-Refactor cycle from the `tdd` skill. Kotlin-specific expectations:
 
-### Red
-
-1. Define data classes, sealed classes, or interfaces if they don't exist yet.
-2. Write a failing test using `@Test` with a clear name (backtick names for readability, e.g., `` `should return empty list when no items match` ``).
-3. Create an empty function/class skeleton with `TODO()` so the code compiles.
-4. Run the test with `./gradlew test --tests "fully.qualified.ClassName.methodName"` to confirm it fails at the assertion level (not `NotImplementedError`).
-
-### Green
-
-1. Write the minimal implementation to make the test pass.
-2. Use fake/hardcoded values first — generalize via triangulation.
-3. Run only the relevant test(s) with `./gradlew test --tests` to confirm green.
-
-### Refactor
-
-1. Eliminate duplication.
-2. Extract types, introduce sealed hierarchies, add `val` properties where appropriate.
-3. Run only the relevant test(s) to confirm they still pass after refactoring.
-
-**Important:** Only run the specific test(s) related to the code you are changing. Do not run the full test suite — delegate that to the `kotlin-testing` agent to keep context usage minimal.
+1. Use readable test names (backticks are allowed), e.g., `` `should return empty list when no items match` ``.
+2. Run targeted tests while iterating: `./gradlew test --tests "fully.qualified.ClassName.methodName"`.
+3. Ensure failures are meaningful (assertion/behavior), not placeholder failures such as `NotImplementedError`.
 
 ## Kotlin Guidelines
 
