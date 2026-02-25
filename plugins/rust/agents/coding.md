@@ -31,26 +31,12 @@ Adapt your workflow to the detected tooling. Do not install or change tooling wi
 
 ## TDD Workflow for Rust
 
-Follow the Red-Green-Refactor cycle from the `tdd` skill, applied to Rust:
+Follow the Red-Green-Refactor cycle from the `tdd` skill. Apply it with Rust-specific practices:
 
-### Red
-
-1. Define types, structs, enums, or traits if they don't exist yet.
-2. Write a failing test in a `#[cfg(test)] mod tests` block (or a separate test file) with a clear function name describing the behavior.
-3. Create an empty function/method skeleton with `todo!()` or `unimplemented!()` so the code compiles.
-4. Run the test with `cargo test <test_name> -- --nocapture` to confirm it fails at the assertion level (not a compilation error).
-
-### Green
-
-1. Write the minimal implementation to make the test pass.
-2. Use fake/hardcoded values first — generalize via triangulation.
-3. Run only the relevant test(s) with `cargo test <test_name>` to confirm green.
-
-### Refactor
-
-1. Eliminate duplication.
-2. Extract types, introduce traits, tighten visibility (`pub(crate)`, private by default).
-3. Run only the relevant test(s) to confirm they still pass after refactoring.
+1. Write a failing test in `#[cfg(test)] mod tests` (or a separate test file) with a behavior-focused name.
+2. For Red, use minimal scaffolding with `todo!()` or `unimplemented!()` when needed so the crate compiles.
+3. Run only focused tests via `cargo test <test_name>` (use `-- --nocapture` when debugging output).
+4. Prefer assertion-level Red failures over compilation failures where feasible, then implement the minimum for Green and refactor.
 
 **Important:** Only run the specific test(s) related to the code you are changing. Do not run the full test suite — delegate that to the `rust-testing` agent to keep context usage minimal.
 
@@ -69,26 +55,15 @@ Follow the Red-Green-Refactor cycle from the `tdd` skill, applied to Rust:
 
 ## Side-Effect Decoupling
 
-Separate pure domain logic from side-effects (I/O, network, database, file system, timers, randomness). Follow a **Pure Core, Imperative Shell** approach:
+Separate pure domain logic from side-effects (I/O, network, database, file system, timers, randomness) using a **Pure Core, Imperative Shell** approach:
 
-- **Pure core** — domain/business logic lives in pure functions that take inputs and return outputs. No I/O, no mutation of external state, no dependency on runtime environment. These functions are trivially testable with plain assertions — no mocks or stubs needed.
-- **Imperative shell** — thin outer layer that orchestrates I/O and calls into the pure core. The shell fetches data, passes it to pure functions, then persists the results.
-- **Boundary types** — define clear input/output types at the boundary between core and shell. The core never imports I/O modules directly; data flows in as plain values.
+- **Pure core** — keep domain logic in pure functions over plain values; no direct I/O.
+- **Imperative shell** — keep orchestration and side-effects in a thin outer layer that calls the core.
+- **Boundary types** — define clear input/output types between core and shell.
 
 When writing new code:
 
-1. Start by modelling the domain logic as pure functions and types.
-2. Write tests against the pure core first — these tests are fast, deterministic, and need no test doubles.
-3. Push side-effects outward: if a function needs to read from a database and then compute something, split it into a function that computes and a caller that reads.
-4. If side-effects cannot be fully separated (e.g., streaming, complex orchestration), isolate them behind traits and inject dependencies — but prefer pure separation where possible.
-
-## Code Quality
-
-- Keep functions small and focused.
-- Name things for what they represent, not how they're implemented.
-- Prefer composition over inheritance-like patterns. Use traits for shared behavior, not struct embedding hacks.
-- Handle errors explicitly — propagate with `?`, don't `panic!` for expected error conditions.
-- Use `#[must_use]` on functions whose return values should not be ignored.
-- Write code that reads top-down; minimize cognitive jumps.
-- Pre-allocate collections when the size is known (`Vec::with_capacity(n)`, `HashMap::with_capacity(n)`).
-- Use `Cow<'_, str>` or `Cow<'_, [T]>` when a function sometimes needs to allocate and sometimes can borrow.
+1. Model domain behavior as pure functions and types first.
+2. Test the pure core first with deterministic assertions.
+3. Push side-effects outward by splitting "read + compute + write" flows.
+4. If full separation is not practical (e.g., streaming/orchestration), isolate side-effects behind traits and inject dependencies.
