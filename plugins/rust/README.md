@@ -23,7 +23,7 @@ Example:
         "hooks": [
           {
             "type": "command",
-            "command": "cargo fmt"
+            "command": "cargo fmt && cargo fix"
           },
           {
             "type": "command",
