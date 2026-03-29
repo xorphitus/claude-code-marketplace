@@ -38,6 +38,11 @@
       "name": "typescript-plugin",
       "source": "./plugins/typescript",
       "description": "TypeScript development plugin providing specialist agents for TDD-driven coding, test analysis, and security auditing."
+    },
+    {
+      "name": "codex-plugin",
+      "source": "./plugins/codex",
+      "description": "OpenAI Codex CLI integration plugin providing skills to delegate tasks and code reviews to Codex from within Claude Code."
     }
   ]
 }
