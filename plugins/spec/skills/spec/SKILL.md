@@ -2,6 +2,7 @@
 name: spec
 description: Analyze requirements, ask clarifying questions, and produce a clear specification. Invoke with /spec before starting non-trivial implementation work.
 user-invocable: true
+argument-hint: "[task description]"
 ---
 
 # Spec — Requirements Specification Skill

@@ -9,6 +9,8 @@ claude plugin install --scope local spec-plugin
 claude plugin install --scope local tdd-plugin
 ```
 
+Use `--scope local` for personal utility plugins (jj, spec, tdd) and `--scope project` for language plugins (go, kotlin, rust, typescript).
+
 ## Recommended External Tools
 
 Official plugins:

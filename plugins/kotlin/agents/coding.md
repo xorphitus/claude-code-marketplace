@@ -1,8 +1,9 @@
 ---
 name: coding
-description: Kotlin coding specialist. Use proactively when writing or modifying Kotlin code to follow TDD Red-Green-Refactor cycle with idiomatic Kotlin practices.
+description: Kotlin coding specialist. Delegate when writing or modifying Kotlin code to follow TDD Red-Green-Refactor cycle with idiomatic Kotlin practices.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: inherit
+maxTurns: 30
 skills:
   - tdd
 ---
@@ -54,18 +55,10 @@ Follow the Red-Green-Refactor cycle from the `tdd` skill. Kotlin-specific expect
 
 ## Side-Effect Decoupling
 
-Separate pure domain logic from side-effects (I/O, network, database, file system, timers, randomness). Follow a **Functional Core, Imperative Shell** approach:
-
-- **Pure core** — domain/business logic lives in pure functions that take inputs and return outputs. No I/O, no mutation of external state, no dependency on runtime environment. These functions are trivially testable with plain assertions — no mocks or stubs needed.
-- **Imperative shell** — thin outer layer that orchestrates I/O and calls into the pure core. The shell fetches data, passes it to pure functions, then persists the results.
-- **Boundary types** — define clear input/output types at the boundary between core and shell. The core never imports I/O packages directly; data flows in as plain values.
-
-When writing new code:
-
-1. Start by modelling the domain logic as pure functions and types.
-2. Write tests against the pure core first — these tests are fast, deterministic, and need no test doubles.
-3. Push side-effects outward: if a function needs to read from a database and then compute something, split it into a function that computes and a caller that reads.
-4. If side-effects cannot be fully separated (e.g., streaming, complex orchestration), isolate them behind narrow interfaces and inject dependencies — but prefer pure separation where possible.
+Separate pure domain logic from side-effects (I/O, network, database, timers, randomness):
+- Pure core: domain logic in pure functions, testable without mocks.
+- Imperative shell: thin outer layer for I/O orchestration.
+- If full separation is impractical, isolate side-effects behind narrow interfaces.
 
 ## Code Quality
 

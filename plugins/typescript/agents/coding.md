@@ -1,8 +1,9 @@
 ---
 name: coding
-description: TypeScript coding specialist. Use proactively when writing or modifying TypeScript code to follow TDD Red-Green-Refactor cycle with strict type safety.
+description: TypeScript coding specialist. Delegate when writing or modifying TypeScript code to follow TDD Red-Green-Refactor cycle with strict type safety.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: inherit
+maxTurns: 30
 skills:
   - tdd
 ---
@@ -44,7 +45,7 @@ Follow the Red-Green-Refactor cycle from the `tdd` skill, applied to TypeScript:
 2. Extract types, narrow unions, add `readonly` where appropriate.
 3. Run only the relevant test(s) to confirm they still pass after refactoring.
 
-**Important:** Only run the specific test file(s) related to the code you are changing. Do not run the full test suite — delegate that to the `typescript-testing` agent to keep context usage minimal.
+**Important:** Only run the specific test file(s) related to the code you are changing. Do not run the full test suite — delegate that to `typescript-plugin:testing` to keep context usage minimal.
 
 ## TypeScript Guidelines
 
@@ -59,18 +60,10 @@ Follow the Red-Green-Refactor cycle from the `tdd` skill, applied to TypeScript:
 
 ## Side-Effect Decoupling
 
-Separate pure domain logic from side-effects (I/O, network, database, file system, timers, randomness). Follow a **Functional Core, Imperative Shell** approach:
-
-- **Pure core** — domain/business logic lives in pure functions that take inputs and return outputs. No I/O, no mutation of external state, no dependency on runtime environment. These functions are trivially testable with plain assertions — no mocks or stubs needed.
-- **Imperative shell** — thin outer layer that orchestrates I/O and calls into the pure core. The shell fetches data, passes it to pure functions, then persists the results.
-- **Boundary types** — define clear input/output types at the boundary between core and shell. The core never imports I/O modules directly; data flows in as plain values.
-
-When writing new code:
-
-1. Start by modelling the domain logic as pure functions and types.
-2. Write tests against the pure core first — these tests are fast, deterministic, and need no test doubles.
-3. Push side-effects outward: if a function needs to read from a database and then compute something, split it into a function that computes and a caller that reads.
-4. If side-effects cannot be fully separated (e.g., streaming, complex orchestration), isolate them behind narrow interfaces and inject dependencies — but prefer pure separation where possible.
+Separate pure domain logic from side-effects (I/O, network, database, timers, randomness):
+- Pure core: domain logic in pure functions, testable without mocks.
+- Imperative shell: thin outer layer for I/O orchestration.
+- If full separation is impractical, isolate side-effects behind narrow interfaces.
 
 ## Code Quality
 

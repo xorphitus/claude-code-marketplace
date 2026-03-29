@@ -2,6 +2,7 @@
 name: jj-workspace
 description: Create isolated jj workspace for parallel work. Use when working on separate tasks simultaneously or testing changes in isolation.
 user-invocable: true
+argument-hint: "[workspace name]"
 ---
 
 # jj Workspace Skill

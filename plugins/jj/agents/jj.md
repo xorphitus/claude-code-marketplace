@@ -1,8 +1,9 @@
 ---
 name: jj
-description: Version control specialist using jj (Jujutsu). Use proactively for all version control operations including commits, diffs, history, bookmarks, rebasing, and workspace management.
+description: Version control specialist using jj (Jujutsu). Delegate for all version control operations including commits, diffs, history, bookmarks, rebasing, and workspace management.
 tools: Bash, Read, Glob, Grep
-model: sonnet
+model: inherit
+maxTurns: 10
 skills:
   - jj
   - jj-workspace

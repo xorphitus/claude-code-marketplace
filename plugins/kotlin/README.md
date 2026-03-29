@@ -5,12 +5,12 @@
 This plugin depends on `tdd-plugin` from this repository. Install it first:
 
 ```bash
-claude plugin install --scope project tdd-plugin
+claude plugin install --scope local tdd-plugin
 ```
 
 ## Recommended Hooks Configuration
 
-Formatting, linting, and static analysis are not included in the plugin agents. Ideally these checks would be built into the plugin, but the specific tooling (ktlint vs standalone, detekt configuration) and project structure vary across projects. As a compromise, configure them as [Claude Code hooks](https://docs.anthropic.com/en/docs/claude-code/hooks) in your project's `.claude/settings.json`.
+Formatting, linting, and static analysis are not included in the plugin agents. Ideally these checks would be built into the plugin, but the specific tooling (ktlint vs standalone, detekt configuration) and project structure vary across projects. As a compromise, configure them as [Claude Code hooks](https://code.claude.com/docs/en/hooks-guide) in your project's `.claude/settings.json`.
 
 Example:
 
@@ -47,32 +47,16 @@ If you use standalone `ktlint` instead of the Gradle plugin, replace the format 
 
 ## CLAUDE.md Configuration
 
-Enforce using the subagents.
+Add to your project's CLAUDE.md to enforce subagent usage:
 
 ```markdown
 ## Development Workflow
 
-Must follow these steps sequentially for any non-trivial implementation:
-
-### 1. Spec
-
-Use `spec-plugin:spec` subagent to clarify requirements and produce a specification before writing any code.
-
-### 2. Coding
-
-Use `kotlin-plugin:coding` subagent to implement the feature following TDD Red-Green-Refactor cycle with idiomatic Kotlin practices.
-
-### 3. Review & Testing
-
-Run all three of the following subagents to validate the implementation:
-
-- `kotlin-plugin:code-review` — Review for readability, maintainability, and Kotlin idioms
-- `kotlin-plugin:testing` — Run tests, analyze coverage, and identify gaps
-- `kotlin-plugin:security` — Audit for vulnerabilities and insecure patterns
-
-### 4. E2E Verification
-
-Use `kotlin-plugin:e2e` subagent to verify end-to-end behavior. If E2E tests fail, loop back to step 2 (Coding) to fix the implementation and repeat from there.
+Use subagents for all non-trivial work:
+1. `spec-plugin:spec` — Clarify requirements
+2. `kotlin-plugin:coding` — Implement with TDD
+3. `kotlin-plugin:code-review`, `kotlin-plugin:testing`, `kotlin-plugin:security` — Validate (run in parallel)
+4. `kotlin-plugin:e2e` — E2E verification (loop to step 2 on failure)
 ```
 
 ## Recommended External Tools

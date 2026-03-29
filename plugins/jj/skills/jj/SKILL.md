@@ -2,6 +2,7 @@
 name: jj
 description: Use `jj` for version control operations (commit, status, log, diff). Invoke with /jj or when committing changes.
 user-invocable: true
+argument-hint: "[operation]"
 ---
 
 # jj Version Control Skill

@@ -1,6 +1,7 @@
 ---
 name: tdd
 description: TDD (Test-Driven Development) rules. Defines t-wada style Red-Green-Refactor cycle, triangulation, baby steps, and other practices. Reference when practicing TDD.
+user-invocable: false
 ---
 
 # TDD (Test-Driven Development) Rules

@@ -1,8 +1,9 @@
 ---
 name: coding
-description: Rust coding specialist. Use proactively when writing or modifying Rust code to follow TDD Red-Green-Refactor cycle with idiomatic Rust practices.
+description: Rust coding specialist. Delegate when writing or modifying Rust code to follow TDD Red-Green-Refactor cycle with idiomatic Rust practices.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: inherit
+maxTurns: 30
 skills:
   - tdd
 ---
@@ -38,7 +39,7 @@ Follow the Red-Green-Refactor cycle from the `tdd` skill. Apply it with Rust-spe
 3. Run only focused tests via `cargo test <test_name>` (use `-- --nocapture` when debugging output).
 4. Prefer assertion-level Red failures over compilation failures where feasible, then implement the minimum for Green and refactor.
 
-**Important:** Only run the specific test(s) related to the code you are changing. Do not run the full test suite — delegate that to the `rust-testing` agent to keep context usage minimal.
+**Important:** Only run the specific test(s) related to the code you are changing. Do not run the full test suite — delegate that to `rust-plugin:testing` to keep context usage minimal.
 
 ## Rust Guidelines
 
@@ -55,15 +56,7 @@ Follow the Red-Green-Refactor cycle from the `tdd` skill. Apply it with Rust-spe
 
 ## Side-Effect Decoupling
 
-Separate pure domain logic from side-effects (I/O, network, database, file system, timers, randomness) using a **Pure Core, Imperative Shell** approach:
-
-- **Pure core** — keep domain logic in pure functions over plain values; no direct I/O.
-- **Imperative shell** — keep orchestration and side-effects in a thin outer layer that calls the core.
-- **Boundary types** — define clear input/output types between core and shell.
-
-When writing new code:
-
-1. Model domain behavior as pure functions and types first.
-2. Test the pure core first with deterministic assertions.
-3. Push side-effects outward by splitting "read + compute + write" flows.
-4. If full separation is not practical (e.g., streaming/orchestration), isolate side-effects behind traits and inject dependencies.
+Separate pure domain logic from side-effects (I/O, network, database, timers, randomness):
+- Pure core: domain logic in pure functions over plain values, no direct I/O.
+- Imperative shell: thin outer layer for I/O orchestration.
+- If full separation is impractical, isolate side-effects behind traits and inject dependencies.
